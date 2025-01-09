@@ -3,6 +3,8 @@ const req = require('express/lib/request');
 let app = express();
 require('dotenv').config();
 
+let bodyParser = require("body-parser");
+
 // console.log("Hello World");
 
 
@@ -20,6 +22,9 @@ app.use((req, res, next) => {
 })
 
 app.use("/public", express.static(__dirname + "/public"));
+
+// Use body-parser to Parse POST Requests
+app.use(bodyParser.urlencoded({extended: false}));
 
 // app.get("/json", (req, res) => {
 //     res.json({"message": "Hello json"})
@@ -52,8 +57,11 @@ app.get("/name", (req, res) => {
     res.json({name: req.query.first + " " + req.query.last})
 })
 
-// Use body-parser to Parse POST Requests
 
+// Get Data from POST Requests
+app.post("/name", (req, res) => {
+    res.json({name: req.body.first + " " + req.body.last})
+})
 
 
 
